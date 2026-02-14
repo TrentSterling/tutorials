@@ -33,6 +33,7 @@ This repository contains a collection of deep-dive tutorials on essential game d
 - [ ] **GOAP**: Planning-based AI systems.
 - [ ] **Utility AI**: Weight-based action selection.
 - [ ] **Boids**: Flocking and swarming behaviors.
+- [ ] **String Pulling (Funnel Algorithm)**: Path smoothing for Navmeshes.
 
 ### Graphics & Voxel Jazz
 - [ ] **Voxel Global Illumination**: Real-time cone tracing.
