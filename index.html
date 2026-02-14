@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Dev Algorithms Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+
+        .prose pre {
+            background-color: #1e293b !important;
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+        }
+
+        .prose code {
+            font-family: 'Fira Code', monospace;
+            color: #38bdf8;
+        }
+
+        .prose h1 { color: #f8fafc; font-weight: 700; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; }
+        .prose h2 { color: #f1f5f9; font-weight: 600; margin-top: 2rem; }
+        .prose a { color: #38bdf8; text-decoration: none; }
+        .prose a:hover { text-decoration: underline; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        .nav-item.active {
+            background-color: #1e293b;
+            border-left: 4px solid #38bdf8;
+            color: #38bdf8;
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col">
+        <div class="p-6 border-bottom border-slate-800">
+            <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-sky-500">🎮</span> Gamedev Hub
+            </h1>
+        </div>
+        <nav class="flex-1 overflow-y-auto p-4 space-y-1" id="sidebar-nav">
+            <!-- Nav items injected here -->
+        </nav>
+        <div class="p-4 border-t border-slate-800 text-xs text-slate-500">
+            v1.0.0 &bull; Built for Gemini CLI
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto bg-slate-950 p-8 lg:p-12">
+        <div class="max-w-4xl mx-auto">
+            <div id="content" class="prose prose-invert prose-sky max-w-none">
+                <div class="flex items-center justify-center h-64 text-slate-500">
+                    <p class="text-lg animate-pulse">Loading tutorial...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const tutorials = [
+            { id: 'bsp', name: 'BSP Tree', status: 'ready' },
+            { id: 'spatial-hash', name: 'Spatial Hashing', status: 'ready' },
+            { id: 'sat', name: 'SAT Collision', status: 'ready' },
+            { id: 'radix-sort', name: 'Radix Sort', status: 'ready' },
+            { id: 'astar', name: 'A* Pathfinding', status: 'ready' },
+            { id: 'threading', name: 'Threading', status: 'ready' },
+            { id: 'navmesh', name: 'Navmesh', status: 'ready' },
+            { id: 'platformer-pathfinding', name: 'Platformer AI', status: 'ready' },
+            { id: 'frim', name: 'FRIM (Lerp Smoothing)', status: 'ready' },
+            { id: 'ecs', name: 'ECS Architecture', status: 'ready' },
+            { id: 'vr-physics-hands', name: 'VR Physics & Climbing', status: 'ready' },
+            { id: 'verlet', name: 'Verlet Integration', status: 'ready' }
+        ];
+
+        const upcoming = [
+            { name: 'Behavior Trees' },
+            { name: 'Inverse Kinematics' },
+            { name: 'Networking: Prediction' },
+            { name: 'PBR Rendering' }
+        ];
+
+        const sidebarNav = document.getElementById('sidebar-nav');
+        const contentDiv = document.getElementById('content');
+
+        // Initialize Sidebar
+        function initSidebar() {
+            let html = tutorials.map(t => `
+                <a href="#${t.id}" 
+                   class="nav-item block px-4 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
+                   id="nav-${t.id}">
+                    ${t.name}
+                </a>
+            `).join('');
+
+            html += `
+                <div class="mt-8 px-4 mb-2 text-xs font-bold text-slate-500 uppercase tracking-widest">
+                    Coming Soon
+                </div>
+            `;
+
+            html += upcoming.map(u => `
+                <div class="px-4 py-2 text-slate-600 text-sm italic cursor-not-allowed flex items-center gap-2">
+                    <span class="w-1 h-1 rounded-full bg-slate-700"></span> ${u.name}
+                </div>
+            `).join('');
+
+            sidebarNav.innerHTML = html;
+        }
+
+        // Load Content
+        async function loadTutorial(id) {
+            // Update active state
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            const activeNav = document.getElementById(`nav-${id}`);
+            if (activeNav) activeNav.classList.add('active');
+
+            try {
+                const response = await fetch(`${id}/README.md`);
+                if (!response.ok) throw new Error('Failed to load');
+                const text = await response.text();
+                
+                contentDiv.innerHTML = marked.parse(text);
+                
+                // Highlight code blocks
+                contentDiv.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+
+                // Scroll to top
+                document.querySelector('main').scrollTop = 0;
+            } catch (err) {
+                contentDiv.innerHTML = `
+                    <div class="bg-red-900/20 border border-red-500/50 p-6 rounded-lg text-red-200">
+                        <h2 class="text-xl font-bold mb-2">Error Loading Tutorial</h2>
+                        <p>Could not find or load the tutorial for "${id}". Ensure you are running this through a web server.</p>
+                        <pre class="mt-4 text-xs opacity-50">${err.message}</pre>
+                    </div>
+                `;
+            }
+        }
+
+        // Routing
+        window.addEventListener('hashchange', () => {
+            const id = window.location.hash.slice(1) || tutorials[0].id;
+            loadTutorial(id);
+        });
+
+        // Initial Load
+        initSidebar();
+        const initialId = window.location.hash.slice(1) || tutorials[0].id;
+        loadTutorial(initialId);
+    </script>
+</body>
+</html>
