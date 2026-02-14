@@ -107,7 +107,10 @@
                     { id: 'pid-controllers', name: 'PID Controllers', diff: 'Senior', tags: ['Math', 'Physics'] },
                     { id: 'gjk-collision', name: 'GJK Algorithm', diff: 'Architect', tags: ['Physics', 'Math'] },
                     { id: 'pbd-physics', name: 'PBD (Position Based Dynamics)', diff: 'Architect', tags: ['Physics'] },
-                    { id: 'raycast-vehicles', name: 'Raycast Vehicle Physics', diff: 'Senior', tags: ['Unity', 'Physics'] }
+                    { id: 'raycast-vehicles', name: 'Raycast Vehicle Physics', diff: 'Senior', tags: ['Unity', 'Physics'] },
+                    { id: 'active-ragdolls', name: 'Active Ragdolls (PD)', diff: 'Senior', tags: ['Physics', 'Animation'] },
+                    { id: 'voronoi-destruction', name: 'Voronoi Destruction', diff: 'Senior', tags: ['Physics', 'Math'] },
+                    { id: 'compute-fluids', name: 'Compute Shader Fluids (SPH)', diff: 'Architect', tags: ['Physics', 'GPU'] }
                 ]
             },
             {
@@ -116,19 +119,23 @@
                     { id: 'astar', name: 'A* Pathfinding', diff: 'Junior', tags: ['AI'] },
                     { id: 'navmesh', name: 'Navmesh & Funnel', diff: 'Intermediate', tags: ['AI'] },
                     { id: 'funnel-algorithm', name: 'String Pulling (Funnel)', diff: 'Intermediate', tags: ['AI'] },
+                    { id: 'flow-fields', name: 'Flow Fields (Crowds)', diff: 'Senior', tags: ['AI', 'Math'] },
+                    { id: 'influence-maps', name: 'Tactical Influence Maps', diff: 'Senior', tags: ['AI', 'Math'] },
                     { id: 'behavior-trees', name: 'Behavior Trees', diff: 'Intermediate', tags: ['AI'] },
                     { id: 'goap-ai', name: 'GOAP Planning', diff: 'Senior', tags: ['AI'] },
                     { id: 'boids', name: 'Boids Flocking', diff: 'Intermediate', tags: ['AI', 'Math'] }
                 ]
             },
             {
-                name: "Engine Architecture",
+                name: "Engine Architecture & Logic",
                 items: [
                     { id: 'ecs', name: 'ECS Architecture', diff: 'Senior', tags: ['Arch'] },
+                    { id: 'hsm-architecture', name: 'Hierarchical State Machines', diff: 'Intermediate', tags: ['Arch', 'C#'] },
                     { id: 'threading', name: 'Task-Based Threading', diff: 'Senior', tags: ['Arch', 'C#'] },
                     { id: 'spatial-hash', name: 'Spatial Hashing', diff: 'Intermediate', tags: ['Arch', 'Optimization'] },
                     { id: 'scene-graphs', name: 'Scene Graphs', diff: 'Intermediate', tags: ['Arch'] },
-                    { id: 'timestep-logic', name: 'Timestep Logic', diff: 'Junior', tags: ['Arch'] }
+                    { id: 'timestep-logic', name: 'Timestep Logic', diff: 'Junior', tags: ['Arch'] },
+                    { id: 'memory-allocators', name: 'Custom Allocators', diff: 'Architect', tags: ['Arch', 'C++'] }
                 ]
             },
             {
@@ -137,7 +144,9 @@
                     { id: 'voxel-gi', name: 'Voxel Global Illumination', diff: 'Architect', tags: ['Graphics', 'GPU'] },
                     { id: 'pbr', name: 'PBR Shading', diff: 'Senior', tags: ['Graphics', 'Math'] },
                     { id: 'sdf-rendering', name: 'SDF Rendering', diff: 'Intermediate', tags: ['Graphics', 'Math'] },
-                    { id: 'wfc-procedural', name: 'Wave Function Collapse', diff: 'Senior', tags: ['ProcGen'] }
+                    { id: 'parallax-occlusion', name: 'Parallax Occlusion Mapping', diff: 'Senior', tags: ['Graphics', 'Shader'] },
+                    { id: 'wfc-procedural', name: 'Wave Function Collapse', diff: 'Senior', tags: ['ProcGen'] },
+                    { id: 'procedural-audio', name: 'Procedural Audio Synth', diff: 'Senior', tags: ['Audio', 'Math'] }
                 ]
             },
             {
@@ -153,6 +162,8 @@
                 name: "Networking",
                 items: [
                     { id: 'networking', name: 'Prediction & Reconciliation', diff: 'Senior', tags: ['Networking'] },
+                    { id: 'rollback-networking', name: 'Rollback (GGPO Style)', diff: 'Architect', tags: ['Networking'] },
+                    { id: 'interest-management', name: 'Interest Management', diff: 'Senior', tags: ['Networking'] },
                     { id: 'nat-punchthrough', name: 'NAT Punchthrough', diff: 'Architect', tags: ['Networking'] },
                     { id: 'steamworks-integration', name: 'Steamworks Integration', diff: 'Intermediate', tags: ['Unity', 'Tools'] }
                 ]
