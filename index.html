@@ -43,12 +43,25 @@
             border-left: 4px solid #38bdf8;
             color: #38bdf8;
         }
+
+        .tag {
+            font-size: 9px;
+            padding: 1px 4px;
+            border-radius: 4px;
+            background: #334155;
+            color: #94a3b8;
+        }
+
+        .diff-Junior { color: #22c55e; }
+        .diff-Intermediate { color: #eab308; }
+        .diff-Senior { color: #f97316; }
+        .diff-Architect { color: #ef4444; }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden">
 
     <!-- Sidebar -->
-    <aside class="w-72 bg-slate-900 border-r border-slate-800 flex flex-col">
+    <aside class="w-80 bg-slate-900 border-r border-slate-800 flex flex-col">
         <div class="p-6">
             <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
                 <span class="text-sky-500">🎮</span> Gamedev Hub
@@ -59,14 +72,13 @@
             <!-- Sections will be injected here -->
         </nav>
         <div class="p-4 border-t border-slate-800 text-[10px] text-slate-500">
-            v1.1.0 &bull; 40+ Topics Scaffolding
+            v1.2.0 &bull; Tagged & Categorized
         </div>
     </aside>
 
     <!-- Main Content -->
     <main class="flex-1 overflow-y-auto bg-slate-950 p-8 lg:p-12">
         <div class="max-w-4xl mx-auto">
-            <!-- Demo Container -->
             <div id="demo-wrapper" class="hidden mb-8 bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
                 <div class="px-4 py-2 border-b border-slate-800 bg-slate-900/50 flex justify-between items-center">
                     <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Interactive Demo</span>
@@ -88,84 +100,76 @@
             {
                 name: "Foundational Math & Physics",
                 items: [
-                    { id: 'frim', name: 'FRIM (Lerp Smoothing)' },
-                    { id: 'sat', name: 'SAT Collision' },
-                    { id: 'verlet', name: 'Verlet Integration' },
-                    { id: 'pid-controllers', name: 'PID Controllers' },
-                    { id: 'fast-math-hacks', name: 'Fast Math Hacks' },
-                    { id: 'gjk-collision', name: 'GJK Algorithm' },
-                    { id: 'pbd-physics', name: 'PBD (Position Based Dynamics)' },
-                    { id: 'buoyancy-sph', name: 'Buoyancy & Fluids' },
-                    { id: 'raycast-vehicles', name: 'Raycast Vehicle Physics' }
+                    { id: 'linear-algebra-101', name: 'Linear Algebra 101', diff: 'Junior', tags: ['Math'] },
+                    { id: 'frim', name: 'FRIM (Lerp Smoothing)', diff: 'Junior', tags: ['Math', 'Unity'] },
+                    { id: 'sat', name: 'SAT Collision', diff: 'Intermediate', tags: ['Physics', 'Math'] },
+                    { id: 'verlet', name: 'Verlet Integration', diff: 'Intermediate', tags: ['Physics'] },
+                    { id: 'pid-controllers', name: 'PID Controllers', diff: 'Senior', tags: ['Math', 'Physics'] },
+                    { id: 'gjk-collision', name: 'GJK Algorithm', diff: 'Architect', tags: ['Physics', 'Math'] },
+                    { id: 'pbd-physics', name: 'PBD (Position Based Dynamics)', diff: 'Architect', tags: ['Physics'] },
+                    { id: 'raycast-vehicles', name: 'Raycast Vehicle Physics', diff: 'Senior', tags: ['Unity', 'Physics'] }
                 ]
             },
             {
                 name: "AI & Pathfinding",
                 items: [
-                    { id: 'astar', name: 'A* Pathfinding' },
-                    { id: 'navmesh', name: 'Navmesh & Funnel' },
-                    { id: 'funnel-algorithm', name: 'String Pulling (Funnel)' },
-                    { id: 'behavior-trees', name: 'Behavior Trees' },
-                    { id: 'goap-ai', name: 'GOAP Planning' },
-                    { id: 'utility-ai', name: 'Utility AI' },
-                    { id: 'boids', name: 'Boids Flocking' },
-                    { id: 'platformer-pathfinding', name: 'Platformer Pathfinding' }
+                    { id: 'astar', name: 'A* Pathfinding', diff: 'Junior', tags: ['AI'] },
+                    { id: 'navmesh', name: 'Navmesh & Funnel', diff: 'Intermediate', tags: ['AI'] },
+                    { id: 'funnel-algorithm', name: 'String Pulling (Funnel)', diff: 'Intermediate', tags: ['AI'] },
+                    { id: 'behavior-trees', name: 'Behavior Trees', diff: 'Intermediate', tags: ['AI'] },
+                    { id: 'goap-ai', name: 'GOAP Planning', diff: 'Senior', tags: ['AI'] },
+                    { id: 'boids', name: 'Boids Flocking', diff: 'Intermediate', tags: ['AI', 'Math'] }
                 ]
             },
             {
                 name: "Engine Architecture",
                 items: [
-                    { id: 'ecs', name: 'ECS Architecture' },
-                    { id: 'threading', name: 'Task-Based Threading' },
-                    { id: 'spatial-hash', name: 'Spatial Hashing' },
-                    { id: 'scene-graphs', name: 'Scene Graphs' },
-                    { id: 'asset-pipelines', name: 'Asset Pipelines' },
-                    { id: 'timestep-logic', name: 'Timestep Logic' },
-                    { id: 'memory-allocators', name: 'Custom Allocators' }
+                    { id: 'ecs', name: 'ECS Architecture', diff: 'Senior', tags: ['Arch'] },
+                    { id: 'threading', name: 'Task-Based Threading', diff: 'Senior', tags: ['Arch', 'C#'] },
+                    { id: 'spatial-hash', name: 'Spatial Hashing', diff: 'Intermediate', tags: ['Arch', 'Optimization'] },
+                    { id: 'scene-graphs', name: 'Scene Graphs', diff: 'Intermediate', tags: ['Arch'] },
+                    { id: 'timestep-logic', name: 'Timestep Logic', diff: 'Junior', tags: ['Arch'] }
                 ]
             },
             {
                 name: "Graphics & Visuals",
                 items: [
-                    { id: 'voxel-gi', name: 'Voxel Global Illumination' },
-                    { id: 'pbr', name: 'PBR Shading' },
-                    { id: 'sdf-rendering', name: 'SDF Rendering' },
-                    { id: 'volumetric-lighting', name: 'Volumetric Beams' },
-                    { id: 'shadow-mapping', name: 'Shadow Mapping' },
-                    { id: 'skeletal-animation', name: 'Skeletal Animation' },
-                    { id: 'bsp', name: 'BSP Trees' },
-                    { id: 'radix-sort', name: 'Radix Sort (GPU)' },
-                    { id: 'dual-contouring', name: 'Dual Contouring' },
-                    { id: 'wfc-procedural', name: 'Wave Function Collapse' }
+                    { id: 'voxel-gi', name: 'Voxel Global Illumination', diff: 'Architect', tags: ['Graphics', 'GPU'] },
+                    { id: 'pbr', name: 'PBR Shading', diff: 'Senior', tags: ['Graphics', 'Math'] },
+                    { id: 'sdf-rendering', name: 'SDF Rendering', diff: 'Intermediate', tags: ['Graphics', 'Math'] },
+                    { id: 'wfc-procedural', name: 'Wave Function Collapse', diff: 'Senior', tags: ['ProcGen'] }
                 ]
             },
             {
                 name: "VR & Specialized Systems",
                 items: [
-                    { id: 'vr-physics-hands', name: 'VR Physics & Climbing' },
-                    { id: 'ik', name: 'Inverse Kinematics (FABRIK)' }
+                    { id: 'vr-physics-hands', name: 'VR Physics & Climbing', diff: 'Senior', tags: ['VR', 'Physics'] },
+                    { id: 'ik', name: 'Inverse Kinematics (FABRIK)', diff: 'Senior', tags: ['Math', 'VR'] },
+                    { id: 'vr-ui-interaction', name: 'VR UI Interaction', diff: 'Intermediate', tags: ['VR'] },
+                    { id: 'haptic-feedback', name: 'Haptic Feedback Design', diff: 'Junior', tags: ['VR'] }
                 ]
             },
             {
                 name: "Networking",
                 items: [
-                    { id: 'networking', name: 'Prediction & Reconciliation' },
-                    { id: 'lag-compensation', name: 'Lag Compensation' },
-                    { id: 'delta-compression', name: 'Delta Compression' }
+                    { id: 'networking', name: 'Prediction & Reconciliation', diff: 'Senior', tags: ['Networking'] },
+                    { id: 'nat-punchthrough', name: 'NAT Punchthrough', diff: 'Architect', tags: ['Networking'] },
+                    { id: 'steamworks-integration', name: 'Steamworks Integration', diff: 'Intermediate', tags: ['Unity', 'Tools'] }
                 ]
             },
             {
-                name: "Tooling",
+                name: "Tooling & DX",
                 items: [
-                    { id: 'frame-profiling', name: 'Frame Profiling' },
-                    { id: 'disk-visualizers', name: 'Disk Space Visualizers' },
-                    { id: 'llm-integration', name: 'LLM Integration' }
+                    { id: 'custom-editors-unity', name: 'Custom Unity Editors', diff: 'Intermediate', tags: ['Unity', 'Tools'] },
+                    { id: 'unit-testing-games', name: 'Unit Testing for Games', diff: 'Junior', tags: ['Tools', 'C#'] },
+                    { id: 'llm-integration', name: 'LLM Integration', diff: 'Intermediate', tags: ['Tools'] }
                 ]
             }
         ];
 
         const sidebarNav = document.getElementById('sidebar-nav');
         const contentDiv = document.getElementById('content');
+        let currentDemo = null;
 
         function initSidebar() {
             sidebarNav.innerHTML = categories.map(cat => `
@@ -174,9 +178,15 @@
                     <div class="space-y-1">
                         ${cat.items.map(t => `
                             <a href="#${t.id}" 
-                               class="nav-item block px-4 py-1.5 text-sm rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
+                               class="nav-item block px-4 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
                                id="nav-${t.id}">
-                                ${t.name}
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm">${t.name}</span>
+                                    <span class="text-[9px] font-bold diff-${t.diff}">${t.diff[0]}</span>
+                                </div>
+                                <div class="flex gap-1 mt-1">
+                                    ${t.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                                </div>
                             </a>
                         `).join('')}
                     </div>
@@ -184,10 +194,7 @@
             `).join('');
         }
 
-        let currentDemo = null;
-
         async function loadTutorial(id) {
-            // Clean up previous demo
             if (currentDemo && currentDemo.destroy) currentDemo.destroy();
             document.getElementById('demo-wrapper').classList.add('hidden');
             
@@ -196,7 +203,6 @@
             if (activeNav) activeNav.classList.add('active');
 
             try {
-                // Load Markdown
                 const response = await fetch(`${id}/README.md`);
                 if (!response.ok) throw new Error('Failed to load');
                 const text = await response.text();
@@ -207,21 +213,17 @@
                 });
                 document.querySelector('main').scrollTop = 0;
 
-                // Load Demo JS if exists
                 try {
                     const demoResponse = await fetch(`${id}/demo.js`);
                     if (demoResponse.ok) {
                         const demoCode = await demoResponse.text();
                         const canvas = document.getElementById('demo-canvas');
                         const wrapper = document.getElementById('demo-wrapper');
-                        
                         wrapper.classList.remove('hidden');
-                        
-                        // Execute demo code in a scoped way
                         const demoFunc = new Function('canvas', demoCode);
                         currentDemo = demoFunc(canvas);
                     }
-                } catch (e) { /* No demo found */ }
+                } catch (e) {}
 
             } catch (err) {
                 contentDiv.innerHTML = `<div class="p-8 text-center text-slate-500 border border-dashed border-slate-800 rounded-xl">
