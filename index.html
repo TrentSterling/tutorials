@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Dev Algorithms Hub</title>
+    <title>Gamedev Hub | Tront</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
@@ -33,7 +33,6 @@
         .prose a { color: #38bdf8; text-decoration: none; }
         .prose a:hover { text-decoration: underline; }
         
-        /* Custom scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
@@ -49,17 +48,18 @@
 <body class="flex h-screen overflow-hidden">
 
     <!-- Sidebar -->
-    <aside class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col">
-        <div class="p-6 border-bottom border-slate-800">
+    <aside class="w-72 bg-slate-900 border-r border-slate-800 flex flex-col">
+        <div class="p-6">
             <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
                 <span class="text-sky-500">🎮</span> Gamedev Hub
             </h1>
+            <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Tront Technical Series</p>
         </div>
-        <nav class="flex-1 overflow-y-auto p-4 space-y-1" id="sidebar-nav">
-            <!-- Nav items injected here -->
+        <nav class="flex-1 overflow-y-auto p-4 space-y-6" id="sidebar-nav">
+            <!-- Sections will be injected here -->
         </nav>
-        <div class="p-4 border-t border-slate-800 text-xs text-slate-500">
-            v1.0.0 &bull; Built for Gemini CLI
+        <div class="p-4 border-t border-slate-800 text-[10px] text-slate-500">
+            v1.1.0 &bull; 40+ Topics Scaffolding
         </div>
     </aside>
 
@@ -68,72 +68,113 @@
         <div class="max-w-4xl mx-auto">
             <div id="content" class="prose prose-invert prose-sky max-w-none">
                 <div class="flex items-center justify-center h-64 text-slate-500">
-                    <p class="text-lg animate-pulse">Loading tutorial...</p>
+                    <p class="text-lg animate-pulse">Select a tutorial to begin...</p>
                 </div>
             </div>
         </div>
     </main>
 
     <script>
-        const tutorials = [
-            { id: 'bsp', name: 'BSP Tree', status: 'ready' },
-            { id: 'spatial-hash', name: 'Spatial Hashing', status: 'ready' },
-            { id: 'sat', name: 'SAT Collision', status: 'ready' },
-            { id: 'radix-sort', name: 'Radix Sort', status: 'ready' },
-            { id: 'astar', name: 'A* Pathfinding', status: 'ready' },
-            { id: 'threading', name: 'Threading', status: 'ready' },
-            { id: 'navmesh', name: 'Navmesh', status: 'ready' },
-            { id: 'platformer-pathfinding', name: 'Platformer AI', status: 'ready' },
-            { id: 'frim', name: 'FRIM (Lerp Smoothing)', status: 'ready' },
-            { id: 'ecs', name: 'ECS Architecture', status: 'ready' },
-            { id: 'vr-physics-hands', name: 'VR Physics & Climbing', status: 'ready' },
-            { id: 'verlet', name: 'Verlet Integration', status: 'ready' },
-            { id: 'ik', name: 'Inverse Kinematics (FABRIK)', status: 'ready' },
-            { id: 'behavior-trees', name: 'Behavior Trees', status: 'ready' },
-            { id: 'networking', name: 'Networking: Prediction', status: 'ready' },
-            { id: 'voxel-gi', name: 'Voxel GI & Cone Tracing', status: 'ready' },
-            { id: 'pbr', name: 'PBR Rendering', status: 'ready' },
-            { id: 'sdf-rendering', name: 'SDF Rendering', status: 'ready' }
-        ];
-
-        const upcoming = [
-            { name: 'GJK Collision' },
-            { name: 'Wave Function Collapse' },
-            { name: 'Raycast Vehicle Physics' },
-            { name: 'Dual Contouring' }
+        const categories = [
+            {
+                name: "Foundational Math & Physics",
+                items: [
+                    { id: 'frim', name: 'FRIM (Lerp Smoothing)' },
+                    { id: 'sat', name: 'SAT Collision' },
+                    { id: 'verlet', name: 'Verlet Integration' },
+                    { id: 'pid-controllers', name: 'PID Controllers' },
+                    { id: 'fast-math-hacks', name: 'Fast Math Hacks' },
+                    { id: 'gjk-collision', name: 'GJK Algorithm' },
+                    { id: 'pbd-physics', name: 'PBD (Position Based Dynamics)' },
+                    { id: 'buoyancy-sph', name: 'Buoyancy & Fluids' },
+                    { id: 'raycast-vehicles', name: 'Raycast Vehicle Physics' }
+                ]
+            },
+            {
+                name: "AI & Pathfinding",
+                items: [
+                    { id: 'astar', name: 'A* Pathfinding' },
+                    { id: 'navmesh', name: 'Navmesh & Funnel' },
+                    { id: 'behavior-trees', name: 'Behavior Trees' },
+                    { id: 'goap-ai', name: 'GOAP Planning' },
+                    { id: 'utility-ai', name: 'Utility AI' },
+                    { id: 'boids', name: 'Boids Flocking' },
+                    { id: 'platformer-pathfinding', name: 'Platformer Pathfinding' }
+                ]
+            },
+            {
+                name: "Engine Architecture",
+                items: [
+                    { id: 'ecs', name: 'ECS Architecture' },
+                    { id: 'threading', name: 'Task-Based Threading' },
+                    { id: 'spatial-hash', name: 'Spatial Hashing' },
+                    { id: 'scene-graphs', name: 'Scene Graphs' },
+                    { id: 'asset-pipelines', name: 'Asset Pipelines' },
+                    { id: 'timestep-logic', name: 'Timestep Logic' },
+                    { id: 'memory-allocators', name: 'Custom Allocators' }
+                ]
+            },
+            {
+                name: "Graphics & Visuals",
+                items: [
+                    { id: 'voxel-gi', name: 'Voxel Global Illumination' },
+                    { id: 'pbr', name: 'PBR Shading' },
+                    { id: 'sdf-rendering', name: 'SDF Rendering' },
+                    { id: 'volumetric-lighting', name: 'Volumetric Beams' },
+                    { id: 'shadow-mapping', name: 'Shadow Mapping' },
+                    { id: 'skeletal-animation', name: 'Skeletal Animation' },
+                    { id: 'bsp', name: 'BSP Trees' },
+                    { id: 'radix-sort', name: 'Radix Sort (GPU)' },
+                    { id: 'dual-contouring', name: 'Dual Contouring' },
+                    { id: 'wfc-procedural', name: 'Wave Function Collapse' }
+                ]
+            },
+            {
+                name: "VR & Specialized Systems",
+                items: [
+                    { id: 'vr-physics-hands', name: 'VR Physics & Climbing' },
+                    { id: 'ik', name: 'Inverse Kinematics (FABRIK)' }
+                ]
+            },
+            {
+                name: "Networking",
+                items: [
+                    { id: 'networking', name: 'Prediction & Reconciliation' },
+                    { id: 'lag-compensation', name: 'Lag Compensation' },
+                    { id: 'delta-compression', name: 'Delta Compression' }
+                ]
+            },
+            {
+                name: "Tooling",
+                items: [
+                    { id: 'frame-profiling', name: 'Frame Profiling' },
+                    { id: 'disk-visualizers', name: 'Disk Space Visualizers' },
+                    { id: 'llm-integration', name: 'LLM Integration' }
+                ]
+            }
         ];
 
         const sidebarNav = document.getElementById('sidebar-nav');
         const contentDiv = document.getElementById('content');
 
-        // Initialize Sidebar
         function initSidebar() {
-            let html = tutorials.map(t => `
-                <a href="#${t.id}" 
-                   class="nav-item block px-4 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
-                   id="nav-${t.id}">
-                    ${t.name}
-                </a>
-            `).join('');
-
-            html += `
-                <div class="mt-8 px-4 mb-2 text-xs font-bold text-slate-500 uppercase tracking-widest">
-                    Coming Soon
-                </div>
-            `;
-
-            html += upcoming.map(u => `
-                <div class="px-4 py-2 text-slate-600 text-sm italic cursor-not-allowed flex items-center gap-2">
-                    <span class="w-1 h-1 rounded-full bg-slate-700"></span> ${u.name}
+            sidebarNav.innerHTML = categories.map(cat => `
+                <div>
+                    <h3 class="px-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">${cat.name}</h3>
+                    <div class="space-y-1">
+                        ${cat.items.map(t => `
+                            <a href="#${t.id}" 
+                               class="nav-item block px-4 py-1.5 text-sm rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
+                               id="nav-${t.id}">
+                                ${t.name}
+                            </a>
+                        `).join('')}
+                    </div>
                 </div>
             `).join('');
-
-            sidebarNav.innerHTML = html;
         }
 
-        // Load Content
         async function loadTutorial(id) {
-            // Update active state
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             const activeNav = document.getElementById(`nav-${id}`);
             if (activeNav) activeNav.classList.add('active');
@@ -144,35 +185,26 @@
                 const text = await response.text();
                 
                 contentDiv.innerHTML = marked.parse(text);
-                
-                // Highlight code blocks
                 contentDiv.querySelectorAll('pre code').forEach((block) => {
                     hljs.highlightElement(block);
                 });
-
-                // Scroll to top
                 document.querySelector('main').scrollTop = 0;
             } catch (err) {
-                contentDiv.innerHTML = `
-                    <div class="bg-red-900/20 border border-red-500/50 p-6 rounded-lg text-red-200">
-                        <h2 class="text-xl font-bold mb-2">Error Loading Tutorial</h2>
-                        <p>Could not find or load the tutorial for "${id}". Ensure you are running this through a web server.</p>
-                        <pre class="mt-4 text-xs opacity-50">${err.message}</pre>
-                    </div>
-                `;
+                contentDiv.innerHTML = `<div class="p-8 text-center text-slate-500 border border-dashed border-slate-800 rounded-xl">
+                    <h2 class="text-xl font-bold text-slate-400">Content TBD</h2>
+                    <p class="mt-2 italic">The tutorial for "${id}" is currently in the scaffold phase.</p>
+                </div>`;
             }
         }
 
-        // Routing
         window.addEventListener('hashchange', () => {
-            const id = window.location.hash.slice(1) || tutorials[0].id;
-            loadTutorial(id);
+            const id = window.location.hash.slice(1);
+            if (id) loadTutorial(id);
         });
 
-        // Initial Load
         initSidebar();
-        const initialId = window.location.hash.slice(1) || tutorials[0].id;
-        loadTutorial(initialId);
+        const initialId = window.location.hash.slice(1);
+        if (initialId) loadTutorial(initialId);
     </script>
 </body>
 </html>
