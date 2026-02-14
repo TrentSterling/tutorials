@@ -66,6 +66,15 @@
     <!-- Main Content -->
     <main class="flex-1 overflow-y-auto bg-slate-950 p-8 lg:p-12">
         <div class="max-w-4xl mx-auto">
+            <!-- Demo Container -->
+            <div id="demo-wrapper" class="hidden mb-8 bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
+                <div class="px-4 py-2 border-b border-slate-800 bg-slate-900/50 flex justify-between items-center">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Interactive Demo</span>
+                    <span class="text-[10px] text-slate-600">Canvas2D / JS</span>
+                </div>
+                <canvas id="demo-canvas" class="w-full h-[300px] cursor-crosshair"></canvas>
+            </div>
+
             <div id="content" class="prose prose-invert prose-sky max-w-none">
                 <div class="flex items-center justify-center h-64 text-slate-500">
                     <p class="text-lg animate-pulse">Select a tutorial to begin...</p>
@@ -174,12 +183,19 @@
             `).join('');
         }
 
+        let currentDemo = null;
+
         async function loadTutorial(id) {
+            // Clean up previous demo
+            if (currentDemo && currentDemo.destroy) currentDemo.destroy();
+            document.getElementById('demo-wrapper').classList.add('hidden');
+            
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             const activeNav = document.getElementById(`nav-${id}`);
             if (activeNav) activeNav.classList.add('active');
 
             try {
+                // Load Markdown
                 const response = await fetch(`${id}/README.md`);
                 if (!response.ok) throw new Error('Failed to load');
                 const text = await response.text();
@@ -189,6 +205,23 @@
                     hljs.highlightElement(block);
                 });
                 document.querySelector('main').scrollTop = 0;
+
+                // Load Demo JS if exists
+                try {
+                    const demoResponse = await fetch(`${id}/demo.js`);
+                    if (demoResponse.ok) {
+                        const demoCode = await demoResponse.text();
+                        const canvas = document.getElementById('demo-canvas');
+                        const wrapper = document.getElementById('demo-wrapper');
+                        
+                        wrapper.classList.remove('hidden');
+                        
+                        // Execute demo code in a scoped way
+                        const demoFunc = new Function('canvas', demoCode);
+                        currentDemo = demoFunc(canvas);
+                    }
+                } catch (e) { /* No demo found */ }
+
             } catch (err) {
                 contentDiv.innerHTML = `<div class="p-8 text-center text-slate-500 border border-dashed border-slate-800 rounded-xl">
                     <h2 class="text-xl font-bold text-slate-400">Content TBD</h2>
