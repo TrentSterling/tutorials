@@ -44,7 +44,24 @@ void main(uint gtid : SV_GroupThreadID, out vertices Vertex v[64], out indices u
 }
 ```
 
-## 4. Summary
+## 4. Part 2: GPU Culling Masterclass
+Traditional engines cull entire objects. Mesh shaders allow you to cull individual groups of 64 triangles.
+
+### Cluster Culling
+We break a mesh into **Meshlets**. In the **Task Shader**, we calculate the bounding sphere of the meshlet.
+- **Frustum Culling:** If the sphere is outside the camera's view, we discard it instantly.
+- **Backface Culling:** If the entire cluster of triangles is facing away from the camera, it is discarded before a single vertex is transformed.
+
+### Occlusion Culling (Hi-Z)
+This is the "Black Magic" of modern rendering.
+1. The GPU generates a low-res version of the previous frame's depth buffer (a **Hi-Z Pyramid**).
+2. The Task Shader checks the meshlet's depth against the Hi-Z pyramid.
+3. If the meshlet is "deeper" than the wall already rendered there, it is culled.
+
+## 5. Why it wins
+This happens entirely on the GPU. The CPU can send "One Billion Triangles" to the GPU, and the Task Shader will discard 99.9% of them in microseconds, leaving only the visible ones for the Mesh Shader to process.
+
+## 6. Summary
 - **Traditional:** GPU follows a fixed path for every vertex.
 - **Mesh Shaders:** GPU acts like a parallel processor for chunks of geometry.
 - **Result:** 10x-100x more triangles on screen with better performance.
