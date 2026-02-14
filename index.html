@@ -75,7 +75,7 @@
             <!-- Sections will be injected here -->
         </nav>
         <div class="p-4 border-t border-slate-800 text-[10px] text-slate-500">
-            v1.3.0 &bull; 60+ Unified Topics
+            v1.4.0 &bull; 70+ Advanced Topics
         </div>
     </aside>
 
@@ -109,6 +109,17 @@
                 ]
             },
             {
+                name: "Procedural Art & DIY Tools",
+                open: true,
+                items: [
+                    { id: 'node-graphs', name: 'Node-Graph (DIY Houdini)', diff: 'Architect', tags: ['Arch', 'Tool'] },
+                    { id: 'compute-painting', name: 'Compute Shader Painting', diff: 'Senior', tags: ['GPU', 'Tool'] },
+                    { id: 'triplanar-mapping', name: 'Triplanar (No UVs)', diff: 'Intermediate', tags: ['Graph', 'Art'] },
+                    { id: 'uv-unwrapping', name: 'UV Unwrapping Math', diff: 'Architect', tags: ['Math', 'Art'] },
+                    { id: 'wfc-procedural', name: 'Wave Function Collapse', diff: 'Senior', tags: ['ProcGen'] }
+                ]
+            },
+            {
                 name: "The 20 Games Challenge",
                 open: false,
                 items: [
@@ -137,7 +148,7 @@
             },
             {
                 name: "Foundational Math & Physics",
-                open: true,
+                open: false,
                 items: [
                     { id: 'linear-algebra-101', name: 'Linear Algebra 101', diff: 'Junior', tags: ['Math'] },
                     { id: 'frim', name: 'FRIM (Lerp Smoothing)', diff: 'Junior', tags: ['Math', 'Unity'] },
@@ -151,7 +162,7 @@
             },
             {
                 name: "Advanced Physics & Simulation",
-                open: true,
+                open: false,
                 items: [
                     { id: 'spd-physics', name: 'PD & SPD Controllers', diff: 'Architect', tags: ['Physics', 'Math'] },
                     { id: 'active-ragdolls', name: 'Active Ragdolls (PD)', diff: 'Senior', tags: ['Physics', 'Animation'] },
@@ -162,7 +173,7 @@
             },
             {
                 name: "AI & Pathfinding",
-                open: true,
+                open: false,
                 items: [
                     { id: 'astar', name: 'A* Pathfinding', diff: 'Junior', tags: ['AI'] },
                     { id: 'navmesh', name: 'Navmesh & Funnel', diff: 'Intermediate', tags: ['AI'] },
@@ -177,8 +188,24 @@
                 ]
             },
             {
+                name: "Graphics & Visuals",
+                open: false,
+                items: [
+                    { id: 'gpu-grass', name: 'GPU Grass (Indirect)', diff: 'Senior', tags: ['Graphics', 'GPU'] },
+                    { id: 'voxel-gi', name: 'Voxel Global Illumination', diff: 'Architect', tags: ['Graphics', 'GPU'] },
+                    { id: 'pbr', name: 'PBR Shading', diff: 'Senior', tags: ['Graphics', 'Math'] },
+                    { id: 'sdf-rendering', name: 'SDF Rendering', diff: 'Intermediate', tags: ['Graphics', 'Math'] },
+                    { id: 'parallax-occlusion', name: 'Parallax Occlusion', diff: 'Senior', tags: ['Graphics', 'Shader'] },
+                    { id: 'volumetric-lighting', name: 'Volumetric Beams', diff: 'Intermediate', tags: ['Graphics'] },
+                    { id: 'shadow-mapping', name: 'Shadow Mapping', diff: 'Senior', tags: ['Graphics'] },
+                    { id: 'skeletal-animation', name: 'Skeletal Animation', diff: 'Senior', tags: ['Graphics'] },
+                    { id: 'virtual-texturing', name: 'Virtual Texturing', diff: 'Architect', tags: ['Graphics', 'Optimization'] },
+                    { id: 'mesh-shaders', name: 'Mesh Shaders', diff: 'Architect', tags: ['Graphics', 'GPU'] }
+                ]
+            },
+            {
                 name: "Engine Architecture & Logic",
-                open: true,
+                open: false,
                 items: [
                     { id: 'ecs', name: 'ECS Architecture', diff: 'Senior', tags: ['Arch'] },
                     { id: 'hsm-architecture', name: 'Hierarchical State Machines', diff: 'Intermediate', tags: ['Arch', 'C#'] },
@@ -186,61 +213,19 @@
                     { id: 'hysteresis', name: 'Hysteresis', diff: 'Junior', tags: ['Arch', 'Logic'] },
                     { id: 'threading', name: 'Task-Based Threading', diff: 'Senior', tags: ['Arch', 'C#'] },
                     { id: 'spatial-hash', name: 'Spatial Hashing', diff: 'Intermediate', tags: ['Arch', 'Optimization'] },
-                    { id: 'scene-graphs', name: 'Scene Graphs', diff: 'Intermediate', tags: ['Arch'] },
-                    { id: 'timestep-logic', name: 'Timestep Logic', diff: 'Junior', tags: ['Arch'] },
-                    { id: 'memory-allocators', name: 'Custom Allocators', diff: 'Architect', tags: ['Arch', 'C++'] },
-                    { id: 'asset-pipelines', name: 'Asset Pipelines', diff: 'Senior', tags: ['Arch'] }
-                ]
-            },
-            {
-                name: "Graphics & Visuals",
-                open: true,
-                items: [
-                    { id: 'voxel-gi', name: 'Voxel Global Illumination', diff: 'Architect', tags: ['Graphics', 'GPU'] },
-                    { id: 'pbr', name: 'PBR Shading', diff: 'Senior', tags: ['Graphics', 'Math'] },
-                    { id: 'sdf-rendering', name: 'SDF Rendering', diff: 'Intermediate', tags: ['Graphics', 'Math'] },
-                    { id: 'parallax-occlusion', name: 'Parallax Occlusion Mapping', diff: 'Senior', tags: ['Graphics', 'Shader'] },
-                    { id: 'wfc-procedural', name: 'Wave Function Collapse', diff: 'Senior', tags: ['ProcGen'] },
-                    { id: 'volumetric-lighting', name: 'Volumetric Beams', diff: 'Intermediate', tags: ['Graphics'] },
-                    { id: 'shadow-mapping', name: 'Shadow Mapping', diff: 'Senior', tags: ['Graphics'] },
-                    { id: 'skeletal-animation', name: 'Skeletal Animation', diff: 'Senior', tags: ['Graphics'] },
-                    { id: 'bsp', name: 'BSP Trees', diff: 'Intermediate', tags: ['Graphics'] },
-                    { id: 'radix-sort', name: 'Radix Sort (GPU)', diff: 'Senior', tags: ['Graphics'] },
-                    { id: 'dual-contouring', name: 'Dual Contouring', diff: 'Architect', tags: ['Graphics'] }
-                ]
-            },
-            {
-                name: "VR & Specialized Systems",
-                open: true,
-                items: [
-                    { id: 'vr-physics-hands', name: 'VR Physics & Climbing', diff: 'Senior', tags: ['VR', 'Physics'] },
-                    { id: 'ik', name: 'Inverse Kinematics (FABRIK)', diff: 'Senior', tags: ['Math', 'VR'] },
-                    { id: 'vr-ui-interaction', name: 'VR UI Interaction', diff: 'Intermediate', tags: ['VR'] },
-                    { id: 'haptic-feedback', name: 'Haptic Feedback Design', diff: 'Junior', tags: ['VR'] }
+                    { id: 'data-serialization', name: 'Data Serialization', diff: 'Senior', tags: ['Arch'] },
+                    { id: 'vfs-systems', name: 'VFS (Virtual File System)', diff: 'Architect', tags: ['Arch'] },
+                    { id: 'memory-allocators', name: 'Custom Allocators', diff: 'Architect', tags: ['Arch', 'C++'] }
                 ]
             },
             {
                 name: "Networking",
-                open: true,
+                open: false,
                 items: [
                     { id: 'networking', name: 'Prediction & Reconciliation', diff: 'Senior', tags: ['Networking'] },
                     { id: 'rollback-networking', name: 'Rollback (GGPO Style)', diff: 'Architect', tags: ['Networking'] },
                     { id: 'interest-management', name: 'Interest Management', diff: 'Senior', tags: ['Networking'] },
-                    { id: 'nat-punchthrough', name: 'NAT Punchthrough', diff: 'Architect', tags: ['Networking'] },
-                    { id: 'lag-compensation', name: 'Lag Compensation', diff: 'Senior', tags: ['Networking'] },
-                    { id: 'delta-compression', name: 'Delta Compression', diff: 'Intermediate', tags: ['Networking'] },
-                    { id: 'steamworks-integration', name: 'Steamworks Integration', diff: 'Intermediate', tags: ['Unity', 'Tools'] }
-                ]
-            },
-            {
-                name: "Tooling & DX",
-                open: true,
-                items: [
-                    { id: 'custom-editors-unity', name: 'Custom Unity Editors', diff: 'Intermediate', tags: ['Unity', 'Tools'] },
-                    { id: 'unit-testing-games', name: 'Unit Testing for Games', diff: 'Junior', tags: ['Tools', 'C#'] },
-                    { id: 'llm-integration', name: 'LLM Integration', diff: 'Intermediate', tags: ['Tools'] },
-                    { id: 'frame-profiling', name: 'Frame Profiling', diff: 'Senior', tags: ['Tools'] },
-                    { id: 'disk-visualizers', name: 'Disk Space Visualizers', diff: 'Intermediate', tags: ['Tools'] }
+                    { id: 'nat-punchthrough', name: 'NAT Punchthrough', diff: 'Architect', tags: ['Networking'] }
                 ]
             }
         ];
