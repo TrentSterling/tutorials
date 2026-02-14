@@ -21,10 +21,11 @@ This repository contains a collection of deep-dive tutorials on essential game d
 - [ ] **Asset Pipelines**: Async loading and hot-reloading.
 - [ ] **Timestep Logic**: Fixed vs. Variable (Interpolation/Extrapolation).
 
-### Advanced Physics & Math
+### Hard Physics (The "Vibe" Series)
+- [ ] **Raycast Vehicle Architecture**: Custom suspension, slip curves, and friction.
 - [ ] **Verlet Integration**: Cloth, ropes, and soft bodies.
-- [ ] **Inverse Kinematics (FABRIK)**: Dynamic bone positioning.
 - [ ] **GJK Algorithm**: Advanced 3D convex collision.
+- [ ] **Stable Voxel Collisions**: Navigating voxel worlds without seams.
 - [ ] **PID Controllers**: Smooth steering and hovering.
 
 ### Advanced AI
@@ -33,13 +34,18 @@ This repository contains a collection of deep-dive tutorials on essential game d
 - [ ] **Utility AI**: Weight-based action selection.
 - [ ] **Boids**: Flocking and swarming behaviors.
 
-### Graphics & Rendering
-- [ ] **Skeletal Animation**: Dual-quaternions and skinning.
+### Graphics & Voxel Jazz
+- [ ] **Voxel Global Illumination**: Real-time cone tracing.
 - [ ] **PBR (Physically Based Rendering)**: Energy conservation and Fresnel.
 - [ ] **SDFs (Signed Distance Fields)**: Math-based rendering.
 - [ ] **Wave Function Collapse**: Procedural world generation.
+- [ ] **Volumetric Light Beams**: The efficient "HL2" style volumetrics.
 
-### Networking
+### Networking (High Performance)
 - [ ] **Client-Side Prediction**: Hiding latency.
+- [ ] **Network Quantization**: Bit-packing and traffic optimization.
 - [ ] **Lag Compensation**: Server-side backtracking.
-- [ ] **Delta Compression**: Minimizing bandwidth.
+
+### Trent's Toolbox
+- [ ] **Disk Space Visualizers**: Recursive tree-map algorithms.
+- [ ] **LLM Integration**: Feeding codebases to GPT/Claude.
