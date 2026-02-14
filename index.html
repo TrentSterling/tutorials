@@ -56,6 +56,9 @@
         .diff-Intermediate { color: #eab308; }
         .diff-Senior { color: #f97316; }
         .diff-Architect { color: #ef4444; }
+
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden">
@@ -68,11 +71,11 @@
             </h1>
             <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Tront Technical Series</p>
         </div>
-        <nav class="flex-1 overflow-y-auto p-4 space-y-6" id="sidebar-nav">
+        <nav class="flex-1 overflow-y-auto p-4 space-y-2" id="sidebar-nav">
             <!-- Sections will be injected here -->
         </nav>
         <div class="p-4 border-t border-slate-800 text-[10px] text-slate-500">
-            v1.2.0 &bull; Tagged & Categorized
+            v1.3.0 &bull; 60+ Unified Topics
         </div>
     </aside>
 
@@ -99,6 +102,7 @@
         const categories = [
             {
                 name: "Meta & Research",
+                open: true,
                 items: [
                     { id: 'research', name: 'Research & Methodology', diff: 'Architect', tags: ['Meta'] },
                     { id: 'gemini', name: 'Project Roadmap', diff: 'Junior', tags: ['Meta'] }
@@ -106,6 +110,7 @@
             },
             {
                 name: "The 20 Games Challenge",
+                open: false,
                 items: [
                     { id: 'challenge', name: 'Overview & Goals', diff: 'Junior', tags: ['Path'] },
                     { id: 'ch-1-pong', name: '1. Pong', diff: 'Junior', tags: ['Phys'] },
@@ -132,6 +137,7 @@
             },
             {
                 name: "Foundational Math & Physics",
+                open: true,
                 items: [
                     { id: 'linear-algebra-101', name: 'Linear Algebra 101', diff: 'Junior', tags: ['Math'] },
                     { id: 'frim', name: 'FRIM (Lerp Smoothing)', diff: 'Junior', tags: ['Math', 'Unity'] },
@@ -145,15 +151,18 @@
             },
             {
                 name: "Advanced Physics & Simulation",
+                open: true,
                 items: [
                     { id: 'spd-physics', name: 'PD & SPD Controllers', diff: 'Architect', tags: ['Physics', 'Math'] },
                     { id: 'active-ragdolls', name: 'Active Ragdolls (PD)', diff: 'Senior', tags: ['Physics', 'Animation'] },
                     { id: 'voronoi-destruction', name: 'Voronoi Destruction', diff: 'Senior', tags: ['Physics', 'Math'] },
-                    { id: 'compute-fluids', name: 'Compute Shader Fluids (SPH)', diff: 'Architect', tags: ['Physics', 'GPU'] }
+                    { id: 'compute-fluids', name: 'Compute Shader Fluids (SPH)', diff: 'Architect', tags: ['Physics', 'GPU'] },
+                    { id: 'buoyancy-sph', name: 'Buoyancy & SPH', diff: 'Architect', tags: ['Physics'] }
                 ]
             },
             {
                 name: "AI & Pathfinding",
+                open: true,
                 items: [
                     { id: 'astar', name: 'A* Pathfinding', diff: 'Junior', tags: ['AI'] },
                     { id: 'navmesh', name: 'Navmesh & Funnel', diff: 'Intermediate', tags: ['AI'] },
@@ -162,11 +171,14 @@
                     { id: 'influence-maps', name: 'Tactical Influence Maps', diff: 'Senior', tags: ['AI', 'Math'] },
                     { id: 'behavior-trees', name: 'Behavior Trees', diff: 'Intermediate', tags: ['AI'] },
                     { id: 'goap-ai', name: 'GOAP Planning', diff: 'Senior', tags: ['AI'] },
-                    { id: 'boids', name: 'Boids Flocking', diff: 'Intermediate', tags: ['AI', 'Math'] }
+                    { id: 'boids', name: 'Boids Flocking', diff: 'Intermediate', tags: ['AI', 'Math'] },
+                    { id: 'platformer-pathfinding', name: 'Platformer Pathfinding', diff: 'Intermediate', tags: ['AI'] },
+                    { id: 'utility-ai', name: 'Utility AI', diff: 'Senior', tags: ['AI'] }
                 ]
             },
             {
                 name: "Engine Architecture & Logic",
+                open: true,
                 items: [
                     { id: 'ecs', name: 'ECS Architecture', diff: 'Senior', tags: ['Arch'] },
                     { id: 'hsm-architecture', name: 'Hierarchical State Machines', diff: 'Intermediate', tags: ['Arch', 'C#'] },
@@ -176,22 +188,30 @@
                     { id: 'spatial-hash', name: 'Spatial Hashing', diff: 'Intermediate', tags: ['Arch', 'Optimization'] },
                     { id: 'scene-graphs', name: 'Scene Graphs', diff: 'Intermediate', tags: ['Arch'] },
                     { id: 'timestep-logic', name: 'Timestep Logic', diff: 'Junior', tags: ['Arch'] },
-                    { id: 'memory-allocators', name: 'Custom Allocators', diff: 'Architect', tags: ['Arch', 'C++'] }
+                    { id: 'memory-allocators', name: 'Custom Allocators', diff: 'Architect', tags: ['Arch', 'C++'] },
+                    { id: 'asset-pipelines', name: 'Asset Pipelines', diff: 'Senior', tags: ['Arch'] }
                 ]
             },
             {
                 name: "Graphics & Visuals",
+                open: true,
                 items: [
                     { id: 'voxel-gi', name: 'Voxel Global Illumination', diff: 'Architect', tags: ['Graphics', 'GPU'] },
                     { id: 'pbr', name: 'PBR Shading', diff: 'Senior', tags: ['Graphics', 'Math'] },
                     { id: 'sdf-rendering', name: 'SDF Rendering', diff: 'Intermediate', tags: ['Graphics', 'Math'] },
                     { id: 'parallax-occlusion', name: 'Parallax Occlusion Mapping', diff: 'Senior', tags: ['Graphics', 'Shader'] },
                     { id: 'wfc-procedural', name: 'Wave Function Collapse', diff: 'Senior', tags: ['ProcGen'] },
-                    { id: 'procedural-audio', name: 'Procedural Audio Synth', diff: 'Senior', tags: ['Audio', 'Math'] }
+                    { id: 'volumetric-lighting', name: 'Volumetric Beams', diff: 'Intermediate', tags: ['Graphics'] },
+                    { id: 'shadow-mapping', name: 'Shadow Mapping', diff: 'Senior', tags: ['Graphics'] },
+                    { id: 'skeletal-animation', name: 'Skeletal Animation', diff: 'Senior', tags: ['Graphics'] },
+                    { id: 'bsp', name: 'BSP Trees', diff: 'Intermediate', tags: ['Graphics'] },
+                    { id: 'radix-sort', name: 'Radix Sort (GPU)', diff: 'Senior', tags: ['Graphics'] },
+                    { id: 'dual-contouring', name: 'Dual Contouring', diff: 'Architect', tags: ['Graphics'] }
                 ]
             },
             {
                 name: "VR & Specialized Systems",
+                open: true,
                 items: [
                     { id: 'vr-physics-hands', name: 'VR Physics & Climbing', diff: 'Senior', tags: ['VR', 'Physics'] },
                     { id: 'ik', name: 'Inverse Kinematics (FABRIK)', diff: 'Senior', tags: ['Math', 'VR'] },
@@ -201,20 +221,26 @@
             },
             {
                 name: "Networking",
+                open: true,
                 items: [
                     { id: 'networking', name: 'Prediction & Reconciliation', diff: 'Senior', tags: ['Networking'] },
                     { id: 'rollback-networking', name: 'Rollback (GGPO Style)', diff: 'Architect', tags: ['Networking'] },
                     { id: 'interest-management', name: 'Interest Management', diff: 'Senior', tags: ['Networking'] },
                     { id: 'nat-punchthrough', name: 'NAT Punchthrough', diff: 'Architect', tags: ['Networking'] },
+                    { id: 'lag-compensation', name: 'Lag Compensation', diff: 'Senior', tags: ['Networking'] },
+                    { id: 'delta-compression', name: 'Delta Compression', diff: 'Intermediate', tags: ['Networking'] },
                     { id: 'steamworks-integration', name: 'Steamworks Integration', diff: 'Intermediate', tags: ['Unity', 'Tools'] }
                 ]
             },
             {
                 name: "Tooling & DX",
+                open: true,
                 items: [
                     { id: 'custom-editors-unity', name: 'Custom Unity Editors', diff: 'Intermediate', tags: ['Unity', 'Tools'] },
                     { id: 'unit-testing-games', name: 'Unit Testing for Games', diff: 'Junior', tags: ['Tools', 'C#'] },
-                    { id: 'llm-integration', name: 'LLM Integration', diff: 'Intermediate', tags: ['Tools'] }
+                    { id: 'llm-integration', name: 'LLM Integration', diff: 'Intermediate', tags: ['Tools'] },
+                    { id: 'frame-profiling', name: 'Frame Profiling', diff: 'Senior', tags: ['Tools'] },
+                    { id: 'disk-visualizers', name: 'Disk Space Visualizers', diff: 'Intermediate', tags: ['Tools'] }
                 ]
             }
         ];
@@ -225,12 +251,15 @@
 
         function initSidebar() {
             sidebarNav.innerHTML = categories.map(cat => `
-                <div>
-                    <h3 class="px-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">${cat.name}</h3>
-                    <div class="space-y-1">
+                <details ${cat.open ? 'open' : ''} class="group">
+                    <summary class="px-4 py-2 text-[11px] font-bold text-slate-500 uppercase tracking-widest flex justify-between items-center hover:text-slate-300 transition-colors">
+                        ${cat.name}
+                        <svg class="w-3 h-3 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="space-y-1 pb-4">
                         ${cat.items.map(t => `
                             <a href="#${t.id}" 
-                               class="nav-item block px-4 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
+                               class="nav-item block px-4 py-2 mx-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
                                id="nav-${t.id}">
                                 <div class="flex justify-between items-center">
                                     <span class="text-sm">${t.name}</span>
@@ -242,7 +271,7 @@
                             </a>
                         `).join('')}
                     </div>
-                </div>
+                </details>
             `).join('');
         }
 
