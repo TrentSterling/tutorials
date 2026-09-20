@@ -1,0 +1,22 @@
+# GitHub Pages builds this repo with Jekyll: every topic README.md becomes a
+# page at /tutorials/<topic>/. Without a config, Pages defaulted site.url to
+# "http://tront.xyz", so jekyll-seo-tag stamped an http canonical onto all 94
+# topic pages while they were served over https. Google treats those as two
+# different URLs, and a page whose canonical points somewhere it is not served
+# is a page Google tends not to index. Setting url and baseurl explicitly fixes
+# the canonical, the og:url and every absolute link.
+url: https://tront.xyz
+baseurl: /tutorials
+
+title: Gamedev Hub
+description: >-
+  Interactive game development tutorials by Trent Sterling (Tront): pathfinding,
+  networking, physics, rendering, GPU techniques and engine architecture, each
+  with a live browser demo you can poke at.
+author: Trent Sterling
+
+# jekyll-sitemap lists every generated topic page, which is how they get
+# discovered; the main site links it from https://tront.xyz/sitemap.xml.
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
