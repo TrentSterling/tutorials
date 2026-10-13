@@ -1,0 +1,41 @@
+
+        /* Keep the reading pane flexible and the complete topic index below it. */
+        body.tutorial-hub {
+            display: grid;
+            grid-template-columns: 20rem minmax(0, 1fr);
+            min-height: 100vh;
+        }
+
+        .tutorial-hub > aside,
+        .tutorial-hub > main {
+            min-width: 0;
+            min-height: 0;
+            height: 100vh;
+            height: 100dvh;
+        }
+
+        .tutorial-hub > aside { width: 100%; }
+        .tutorial-hub #sidebar-nav { min-height: 0; }
+        .tutorial-hub #content { overflow-wrap: anywhere; }
+        .tutorial-hub #content pre,
+        .tutorial-hub #content table { max-width: 100%; overflow-x: auto; }
+        .tutorial-hub #content table { display: block; }
+        .tutorial-hub > .tront-topics {
+            grid-column: 1 / -1;
+            min-width: 0;
+            width: 100%;
+        }
+
+        @media (max-width: 767px) {
+            body.tutorial-hub { grid-template-columns: minmax(0, 1fr); }
+            .tutorial-hub > aside {
+                height: min(24rem, 45vh);
+                height: min(24rem, 45dvh);
+            }
+            .tutorial-hub > main {
+                height: auto;
+                min-height: 60vh;
+                overflow-y: visible;
+                padding: 1.25rem;
+            }
+        }
