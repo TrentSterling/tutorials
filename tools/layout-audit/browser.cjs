@@ -124,8 +124,19 @@ async function codeAndTable(page,name){
  const expected=markdown['/tutorials/data-serialization/README.md'].toString().match(/```csharp\n([\s\S]*?)```/)[1];
  assert.equal(await page.locator('#content pre code').textContent(),expected,'the complete real source code is preserved');
  const pre=page.locator('#content pre');await pre.scrollIntoViewIfNeeded();await screenshot(page,name+'-real-code');
- const geometry=await pre.evaluate(el=>({clientWidth:el.clientWidth,scrollWidth:el.scrollWidth,overflowX:getComputedStyle(el).overflowX}));assert.equal(geometry.overflowX,'auto');
- if(geometry.scrollWidth>geometry.clientWidth+1){const g=await pre.evaluate(point);await page.mouse.move(g.x,Math.min(899,Math.max(1,g.y)));await page.mouse.wheel(400,0);await delay(120);assert.ok(await pre.evaluate(el=>el.scrollLeft)>0,'long real code lines remain reachable by horizontal scroll inside the code block');}
+ const owners=await pre.evaluate(el=>[el,el.querySelector('code')].map(node=>({tag:node.tagName,clientWidth:node.clientWidth,scrollWidth:node.scrollWidth,scrollLeft:node.scrollLeft,overflowX:getComputedStyle(node).overflowX})));
+ const geometry=owners.reduce((a,b)=>b.scrollWidth-b.clientWidth>a.scrollWidth-a.clientWidth?b:a);assert.equal(geometry.overflowX,'auto');
+ const scrollOwner=geometry.tag==='CODE'?pre.locator('code'):pre;
+ const range=geometry.scrollWidth-geometry.clientWidth;geometry.range=range;
+ if(prose.viewport.width<768)assert.ok(range>1,'narrow viewport genuinely exercises the complete long real code lines');
+ if(range>1){
+  const g=await scrollOwner.evaluate(point);assert.ok(g.inside&&g.hit,'actual code scroll owner is visible and hit-testable');
+  const delta=Math.max(1,Math.floor(Math.min(200,range/2)));await page.mouse.move(g.x,g.y);await page.mouse.wheel(delta,0);await delay(120);
+  geometry.afterScrollLeft=await scrollOwner.evaluate(el=>el.scrollLeft);geometry.wheelDelta=delta;
+  assert.ok(geometry.afterScrollLeft>geometry.scrollLeft,'long real code lines remain reachable by horizontal scroll inside the actual code element');
+  assert.equal(await page.locator('#content pre code').textContent(),expected,'horizontal scrolling retains the complete original code');
+  await screenshot(page,name+'-real-code-scrolled');
+ }
  // Deliberately synthetic stress input, rendered only in this test. Never saved in site content.
  const table=await page.evaluate(()=>{
   const probe=document.createElement('div');probe.id='layout-table-probe';probe.innerHTML=marked.parse('| Field | Long identifier |\n| --- | --- |\n| State | '+ 'unchanged_payload_'.repeat(18)+' |');document.querySelector('#content').appendChild(probe);
