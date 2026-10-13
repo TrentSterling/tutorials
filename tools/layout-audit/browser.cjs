@@ -68,12 +68,23 @@ async function clickVisible(page,selector){
 }
 async function flow(page,width,name){
  const evidence={};
- const initial=await page.evaluate(measurements);
+ let initial=await page.evaluate(measurements);
  if(width>=768){
-  await page.mouse.move(initial.main.x+initial.main.width/2,200);await page.mouse.wheel(0,500);await delay(180);
+  if(initial.main.scrollHeight-initial.main.clientHeight<=2){
+   await page.goto(ROOT+'#data-serialization',{waitUntil:'domcontentloaded'});
+   await page.waitForFunction(()=>document.querySelector('#content h1')?.textContent.trim()==='Data Serialization (High-Speed Game State)'&&document.querySelector('#content pre code.hljs'));
+   initial=await page.evaluate(measurements);evidence.scrollArticle='data-serialization';
+  }else evidence.scrollArticle='gemini';
+  const remaining=initial.main.scrollHeight-initial.main.clientHeight-initial.main.scrollTop;
+  assert.ok(remaining>2,'unchanged real article provides a positive reader scroll range');
+  const delta=Math.max(1,Math.floor(Math.min(120,remaining/2)));evidence.readerWheelDelta=delta;
+  await page.mouse.move(initial.main.x+initial.main.width/2,200);await page.mouse.wheel(0,delta);await delay(180);
   const scrolled=await page.evaluate(measurements);assert.ok(scrolled.main.scrollTop>0,'reader independently scrolls');assert.equal(scrolled.nav.scrollTop,0);assert.equal(scrolled.document.scrollTop,0);evidence.readerScroll=scrolled;
  }
- const nav=await page.locator('#sidebar-nav').evaluate(point);assert.ok(nav.inside&&nav.hit);await page.mouse.move(nav.x,nav.y);await page.mouse.wheel(0,600);await delay(180);
+ const nav=await page.locator('#sidebar-nav').evaluate(point);assert.ok(nav.inside&&nav.hit);
+ const navRemaining=initial.nav.scrollHeight-initial.nav.clientHeight-initial.nav.scrollTop;assert.ok(navRemaining>2,'sidebar provides a positive independent scroll range');
+ const navDelta=Math.max(1,Math.floor(Math.min(120,navRemaining/2)));evidence.sidebarWheelDelta=navDelta;
+ await page.mouse.move(nav.x,nav.y);await page.mouse.wheel(0,navDelta);await delay(180);
  const side=await page.evaluate(measurements);assert.ok(side.nav.scrollTop>0,'sidebar independently scrolls');assert.equal(side.document.scrollTop,0);if(width>=768)assert.equal(side.main.scrollTop,evidence.readerScroll.main.scrollTop);evidence.sidebarScroll=side;
  await page.mouse.wheel(0,-10000);await delay(180);assert.equal((await page.evaluate(measurements)).nav.scrollTop,0);
  evidence.researchClick=await clickVisible(page,'#nav-research');await page.waitForFunction(()=>document.querySelector('#nav-research').classList.contains('active')&&!document.querySelector('#content').textContent.includes('Game Development Tutorials'));
