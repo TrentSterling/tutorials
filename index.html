@@ -273,7 +273,7 @@
             if (activeNav) activeNav.classList.add('active');
 
             try {
-                const response = await fetch(`${id}/README.md`);
+                const response = await fetch(id === 'gemini' ? 'gemini.md' : `${id}/README.md`);
                 if (!response.ok) throw new Error('Failed to load');
                 const text = await response.text();
                 
@@ -282,6 +282,8 @@
                     hljs.highlightElement(block);
                 });
                 document.querySelector('main').scrollTop = 0;
+
+                if (id === 'gemini') return;
 
                 try {
                     const demoResponse = await fetch(`${id}/demo.js`);
@@ -320,7 +322,7 @@
 <h3>Meta &amp; Research</h3>
 <ul>
 <li><a href="/tutorials/research/">Research &amp; Methodology</a></li>
-<li><a href="/tutorials/gemini/">Project Roadmap</a></li>
+<li><a href="/tutorials/gemini.html">Project Roadmap</a></li>
 </ul>
 <h3>Procedural Art &amp; DIY Tools</h3>
 <ul>
