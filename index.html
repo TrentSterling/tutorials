@@ -273,7 +273,7 @@
             if (activeNav) activeNav.classList.add('active');
 
             try {
-                const response = await fetch(`${id}/README.md`);
+                const response = await fetch(id === 'gemini' ? 'gemini.md' : `${id}/README.md`);
                 if (!response.ok) throw new Error('Failed to load');
                 const text = await response.text();
                 
@@ -282,6 +282,8 @@
                     hljs.highlightElement(block);
                 });
                 document.querySelector('main').scrollTop = 0;
+
+                if (id === 'gemini') return;
 
                 try {
                     const demoResponse = await fetch(`${id}/demo.js`);
